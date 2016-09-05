@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Typeing Tester</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+	<div class="modal-trasparency">
+		<div class="modal-nav clearfix">
+			<nav class="clearfix">
+				<ul class="clearfix">
+					<li onclick="doLevel(0)">f j</li>
+					<li onclick="doLevel(1)">d k</li>
+					<li onclick="doLevel(2)">s l</li>
+					<li onclick="doLevel(3)">Review</li>
+					<li onclick="doLevel(4)">u r</li>
+					<li onclick="doLevel(5)">e i</li>
+					<li onclick="doLevel(6)">Review</li>
+					<li onclick="doLevel(7)">a ;</li>
+					<li onclick="doLevel(8)">w o</li>
+					<li onclick="doLevel(9)">Review</li>
+					<li onclick="doLevel(10)">g h</li>
+					<li onclick="doLevel(11)">t p</li>
+					<li onclick="doLevel(12)">Review</li>
+					<li onclick="doLevel(13)">q y</li>
+					<li onclick="doLevel(14)">Review</li>
+					<li onclick="doLevel(15)">m v</li>
+					<li onclick="doLevel(16)">n c</li>
+					<li onclick="doLevel(17)">Review</li>
+					<li onclick="doLevel(18)">x ,</li>
+					<li onclick="doLevel(19)">z .</li>
+					<li onclick="doLevel(20)">Review</li>
+					<li onclick="doLevel(21)">Review</li>
+				</ul>
+			</nav>
+			<h1 class="modal-close" onclick="closeModal()">CLOSE</h1>
+		</div> <!-- modal-nav -->
+	</div> <!-- modal-transparency -->
+	<div class="practiceMaterial">
+		<p id="stringHolder"></p>
+	</div>
+	<div class="input">
+		<form>
+			<textarea id="userInput" onkeyup="textChange()"></textarea>
+		</form>
+	</div>
+	<div class="key-board">
+		<div class="top-row">
+			<div class="key tilda double"><p>~</p><p>`</p></div>
+			<div class="letter one double"><p>!</p><p>1</p></div>
+			<div class="letter two double"><p>@</p><p>2</p></div>
+			<div class="letter three double"><p>#</p><p>3</p></div>
+			<div class="letter four double"><p>$</p><p>4</p></div>
+			<div class="letter five double"><p>%</p><p>5</p></div>
+			<div class="letter six double"><p>^</p><p>6</p></div>
+			<div class="letter seven double"><p>&</p><p>7</p></div>
+			<div class="letter eight double"><p>*</p><p>8</p></div>
+			<div class="letter nine double"><p>(</p><p>9</p></div>
+			<div class="letter zero double"><p>)</p><p>0</p></div>
+			<div class="key dash double"><p>_</p><p>-</p></div>
+			<div class="key equals double"><p>+</p><p>=</p></div>
+			<div class="key backspace">Backspace</div>
+		</div>
+			<div class="second-row">
+			<div class="key tab">Tab</div>
+			<div class="letter q">Q</div>
+			<div class="letter w">W</div>
+			<div class="letter e">E</div>
+			<div class="letter r">R</div>
+			<div class="letter t">T</div>
+			<div class="letter y">Y</div>
+			<div class="letter u">U</div>
+			<div class="letter i">I</div>
+			<div class="letter o">O</div>
+			<div class="letter p">P</div>
+			<div class="key left-bracket double"><p>{</p><p>[</p></div>
+			<div class="key right-bracket double"><p>}</p><p>]</p></div>
+			<div class="key back-slash double"><p>|</p><p>\</p></div>
+		</div>
+		<div class="third-row">
+			<div class="key cap-locks">Caps Lock</div>
+			<div class="letter a">A</div>
+			<div class="letter s">S</div>
+			<div class="letter d">D</div>
+			<div class="letter f">F</div>
+			<div class="letter g">G</div>
+			<div class="letter h">H</div>
+			<div class="letter j">J</div>
+			<div class="letter k">K</div>
+			<div class="letter l">L</div>
+			<div class="key semi-colon double"><p>:</p><p>;</p></div>
+			<div class="key apostraphy double"><p>"</p><p>'</p></div>
+			<div class="key enter">Enter</div>
+		</div>
+		<div class="fourth-row">
+			<div class="key shift">Shift</div>
+			<div class="letter z">Z</div>
+			<div class="letter x">X</div>
+			<div class="letter c">C</div>
+			<div class="letter v">V</div>
+			<div class="letter b">B</div>
+			<div class="letter n">N</div>
+			<div class="letter m">M</div>
+			<div class="key comma double"><p><</p><p>,</p></div>
+			<div class="key period double"><p>></p><p>.</p></div>
+			<div class="key forward-slash double"><p>?</p><p>/</p></div>
+			<div class="key shift shift2">Shift</div>
+		</div>
+		<div class="key space-bar"></div>		
+	</div>
+	<div class="container results">
+		<div class="wordsPerMinute">
+			<h1>Words per Minute</h1>
+			<div class="">				
+			</div>
+		</div>
+		<dir class="errors">
+			<h1>Accuracy</h1>
+			<div class="accuracy">				
+			</div>
+			<br>
+			<h1 id="advance" onclick="userAdvance()">Next Level</h1>
+			<h1 id="menu" onclick="openMenu()">Menu</h1>
+		</div>		
+	</div>  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="app.js"></script>  
+</body>
+</html>
