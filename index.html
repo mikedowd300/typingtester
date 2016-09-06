@@ -42,7 +42,8 @@
 	</div>
 	<div class="input">
 		<form>
-			<textarea id="userInput" onkeyup="textChange()"></textarea>
+			<!-- <textarea id="userInput" onkeyup="textChange()"></textarea> -->
+			<textarea id="userInput" onkeypress="keyPress(event)"></textarea>
 		</form>
 	</div>
 	<div class="key-board">
@@ -110,16 +111,23 @@
 		<div class="key space-bar"></div>		
 	</div>
 	<div class="container results">
-		<div class="wordsPerMinute">
-			<h1>Words per Minute</h1>
-			<div class="">				
+		<div class="stats">
+			<div class="timer">
+				<h1 class="inlineH">That took you </h1>
+				<h1  class="time inlineH"></h1>
+				<h1 class="inlineH">,</h1>
+			</div>
+			<div class="wordsPerMinute">
+				<h1 class="inlineH">which is about </h1>
+				<h1 class="wpm inlineH"></h1>
+				<h1 class="inlineH"> words per minute,</h1>
+			</div>
+			<div class="errors">
+				<h1  class="inlineH">with accuracy of </h1>
+				<h1 class="accuracy inlineH"></h1>
 			</div>
 		</div>
-		<dir class="errors">
-			<h1>Accuracy</h1>
-			<div class="accuracy">				
-			</div>
-			<br>
+		<div class="keepGoing">			
 			<h1 id="advance" onclick="userAdvance()">Next Level</h1>
 			<h1 id="menu" onclick="openMenu()">Menu</h1>
 		</div>		

@@ -4,7 +4,9 @@ findKeyBoardHeights();
 var level = 0;
 var errorCount = 0;
 var randStr;
+var randStrIndex = 0;
 var levels = ['ffjj ', 'dddk kkfj ', 'ssss llll dfjk ', 'ffjj ddkk ssll ', 'uuuu uuuu rrrr rrrr ffjj dksl ', 'eeee iiii eeii rruu kkdd slei ', 'sdfe rjki lulu sdfe rjki ', 'aaaa aa;; ;;;;sldk fjei a;ie ', 'wwww oooo wwoo llls ssee iikj dfur a;wo ', 'aaaa ;;;; wwww oooo fjdk slur eiwo ','hhhh hhgg gggg uutt iirr owks a;hg ', 'tttt ttpp pppp ;;;a aaoo rrfj kdsl a;pt ', 'wert uiop asdf ghjk l; ', 'qqqq qqyy yyyy aaah hhgj uuww sert iopk l;qy ', 'qqyy wwtt oopp erui asdf ghjk l;', 'mmmm mmvv ggkk gkuu ttrr desa qwui opl; ', 'nnnn nncc cccc mmmv vvvj fdsa kl;u rytp ', 'mmmm nnnn vvvv cccc jjff kkdd llss a;ur ', 'xxxx xxx, ,,,, ,,mm cckk kddd l;as wert yuio p', 'zzzz zzz. .... ..ll ss;; aasl ddkk ppee ', 'qwer tyui opas dfgh jkl; xcvn m,.z ', 'qazs xpl.k ,zq. ']
+doLevel(0);
 
 function closeModal() {
 	$('.modal-trasparency').css('display', 'none');
@@ -37,11 +39,6 @@ function findKeyBoardHeights() {
 $(window).resize(function(){
     findKeyBoardHeights();
 });
-
-//set the height of the textarea to match the height of the practiceMaterial
-
-//If needs be, the results can be appear in a modal window or next to the keyboard.
-
 //do te clear fix for the li items in the modal nav as well as for the keyboard keys
 
 //Find out how to figure out which key is pressed on ondownclick(). Use thta to make the appropriate key light up on the keyboard as its pressed
@@ -56,8 +53,6 @@ $(window).resize(function(){
 
 //Add a color-coded finger guide. Unless you figure out how to have transparent hands over the board pressing the keys. That would be the coolest.
 
-doLevel(0);
-
 function userAdvance() {
 	$('#userInput').val('');
 	if (pass && level < levels.length) {
@@ -71,17 +66,18 @@ function userAdvance() {
 }
 
 function doLevel(lev) {
+	// Creat a string of HTML that contains a single character from randStr wrapped in 
+	//<span id="charX"> where coinsides with the character number in randStr
 	var nextLevel = levels[lev];
-	randStr = randomStr(nextLevel);
-	// Creat a string of HTML that contains a single character from randStr wrapped in <span id="charX"> where coinsides with the character number in randStr
+	randStr = randomStr(nextLevel);	
 	var htmlStr = '';
 	for(var i = 0; i < randStr.length; i++) {
 		var tempId = 'char' + i;
 		htmlStr += '<span class="char ' + tempId + '">';
-		htmlStr += randStr[i];;
+		htmlStr += randStr[i];
 		htmlStr += '</span>';
 	}
-	$('#stringHolder').html(htmlStr);
+	$('#stringHolder').html(htmlStr);	
 	if(lev !== 0) {	
 		closeModal();
 	}
@@ -91,40 +87,57 @@ function doLevel(lev) {
 function randomStr(str) {
 	var len = str.length;
 	var newStr = str[0];
-	for(var i = 1; i < 100; i++) {
-		var char = Math.ceil(Math.random() * len) - 1;
-		if (newStr[i - 1] === ' ') {
-			if (str[char] === ' ') {
-				i--;
-			} 
+	for(var i = 1; i < 99; i++) {
+		var chr = Math.ceil(Math.random() * len) - 1;
+		if (newStr[i - 1] === ' ' &&  str[chr] === ' ') {
+				i--;			
 		}else {
-			newStr += str[char];
+			newStr += str[chr];
 		}
 	}
+	newStr[99] = str[7];
 	return newStr;
 }
 
-function textChange() {
-	var inputStr = $('#userInput').val();
-	for(var i = 0; i < inputStr.length; i++) {
-		var tempId = '.char' + i;
-		if(inputStr[i] != randStr[i] ) {		
-			errorCount++;			
-			$(tempId).css('color', 'red');
-			if(randStr[i] === ' ') {
-				$(tempId).css('background-color', 'red');
-			}
-		} else if(randStr[i] === ' ') {
-				console.log('blank');
-				$(tempId).css('color', 'gray').css('background-color', 'gray');
-		} else {
-			$(tempId).css('color', 'gray');
+function keyPress(k) {
+	//var startTime = 0;
+	var endTime = 0;
+	var hr, min, sec;
+	var chr = k.key;
+	var tempId = '.char' + randStrIndex;
+	var d = new Date();
+	if(chr !== randStr[randStrIndex]) {		
+		errorCount++;			
+		$(tempId).css('color', 'red');
+		if(randStr[randStrIndex] === ' ') {
+			$(tempId).css('background-color', 'red');
 		}
-	}	
+	} else if(randStr[randStrIndex] === ' ') {
+		$(tempId).css('color', 'gray').css('background-color', 'gray');
+	} else {
+		$(tempId).css('color', 'gray');
+	}
 
-	if(inputStr.length === 100) {
+	if(randStrIndex === 0) {
+		hr = d.getHours();
+		min = d.getMinutes();
+		sec = d.getSeconds();
+		startTime = (hr * 3600) + (min * 60) + sec;
+		startTime = parseInt(startTime);
+	}
+
+	if(randStrIndex === 98) {
+		hr = d.getHours();
+		min = d.getMinutes();
+		sec = d.getSeconds();		
+		endTime = (hr * 3600) + (min * 60) + sec;
+		console.log(endTime);
+		var timeTotal = (endTime - startTime) + ' seconds';
+		var wpm = Math.round(17/((endTime - startTime)/60));
+		$('.wpm').text(wpm);
+		console.log(timeTotal);
+		$('.time').text(timeTotal);
 		$('#userInput').blur();
-		// $('#advance').focus();
 		var accStr = (100 - errorCount) + '%'; 
 		$('.accuracy').text(accStr);
 		errorCount = 0;
@@ -133,5 +146,7 @@ function textChange() {
 		$('.results').css('width', 'calc(22% - 1px)');
 		$('#advance').css('color','blue').hide();
 		$('#advance').delay( 2000 ).fadeIn( 1000 );
-	}
+		randStrIndex = -1;
+	}		
+	randStrIndex++;
 }
