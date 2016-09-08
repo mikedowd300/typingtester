@@ -31,7 +31,7 @@ function findKeyBoardHeights() {
 	$('.key-board').css('margin', margin);
 
 	tall = $('.letter').css('width');
-	tallBoard = ((parseInt(tall) + 15 + parseInt(margin)) * 6) + 'px';
+	tallBoard = ((parseInt(tall) + 19 + parseInt(margin)) * 6) + 'px';
 	$('.key-board').css('height', tallBoard);
 	$('.results').css('height', tallBoard);
 }
@@ -143,10 +143,14 @@ function keyPress(k) {
 		errorCount = 0;
 		$('.key-board').css('width', 'calc(70% - 1px)');
 		$('.results').css('visibility', 'visible');
-		$('.results').css('width', 'calc(22% - 1px)');
+		$('.results').css('width', 'calc(22% - 1px)').css('margin-right', '10px');
 		$('#advance').css('color','blue').hide();
 		$('#advance').delay( 2000 ).fadeIn( 1000 );
 		randStrIndex = -1;
 	}		
 	randStrIndex++;
+}
+
+function focusTextArea () {
+	$('textarea').focus();
 }

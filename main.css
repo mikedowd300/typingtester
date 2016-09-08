@@ -5,6 +5,7 @@
 
 body {
 	background-color: lightblue;
+	min-width: 935px;
 }
 
 nav {
@@ -78,28 +79,38 @@ li:hover {
 }
 
 .practiceMaterial {
-	padding: 1%;
+	padding: 15px 10px;
 	margin: 1% 10px;
 	width: calc(95% - 1px);
+	height: 22vh;
 	border: 1px solid white;
 	background-color: black;
 	color: white;		
-	letter-spacing: 1.5px;
+	letter-spacing: 2.3px;
 	font-family: sans-serif;
-	font-size: 1.8rem;		
-	border-radius: 15px;
+	font-size: 300%;		
+	border-radius: 15px;	
+	min-width: 645px;
+	z-index: 100;
 }
 
 .input {
 	padding: 1%;
-	margin: 1% 10px;
-	width: calc(95% - 1px);
-	border: 1px solid black;
-	color: darkblue;
+	/*margin: 1% 10px;*/
+	margin: 0;
+	/*width: calc(95% - 1px);*/
+	width: 10px;
+	border: 1px solid transparent;
+	color: transparent;
 	letter-spacing: 2px;
-	background-color: white;
+	background-color: transparent;
 	border-radius: 15px;
-	box-shadow: black 15px 20px 15px;	
+	/*box-shadow: black 15px 20px 15px;	*/
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	/*visibility: hidden;*/
 }
 
 form {
@@ -107,27 +118,31 @@ form {
 }
 
 textarea {
-	width: 100%;
-	height: 34px;
+/*	width: 100%;
+	height: 34px;*/
+	width: 1px;
+	height: 1px;
 	overflow: hidden;
 	font-family: sans-serif;
-	font-size: 1.8rem;
-	border: transparent;	
+	font-size: .1rem;
+	border: transparent;
+	color: transparent;	
+	background-color: transparent;
 }
 
 .key-board {
 	padding: 1%;
-	margin: 1% 5px 1% 10px;
+	margin: 1% 10px 1% 5px;
 	width: calc(95% - 1px);  /*changes t0 calc(95% - 1px)*/
 	border-radius: 20px;
 	border: 1px solid white;
-	height: 380px;
+	height: 56vh;
 	background-color: grey;
 	box-shadow: black 15px 20px 15px;
 	clear: both;
 	min-width: 645px;
 	display: inline-block;
-	transition: width 3s;
+	transition: width 2s;
 	/*transform: rotateX(-65deg);*/
 }
 
@@ -138,12 +153,12 @@ textarea {
 	border-radius: 20px;
 	border: 1px solid black;
 	box-shadow: blue 15px 20px 15px;
-	height: 380px;
+	height: 56vh;
 	background-color: silver;
 	display: inline;
 	visibility: hidden;
 	float: right;
-	transition: width 3s, visibility 0s;
+	transition: width 2s, visibility 0s;
 	/*clear: both;*/
 }
 
@@ -213,7 +228,7 @@ textarea {
 .stats {
 	border: 1px solid black;
 	border-radius: 15px;
-	font-size: 1rem;
+	font-size: 75%;
 	background-color: white;
 	margin: 10px auto;
 	padding : 5px;
@@ -222,8 +237,8 @@ textarea {
 
 .keepGoing {
 	font-size: 1.4rem;
-	margin: 35px 0 0 0;
-	border: 3px solid black;
+	margin: 15px 0 0 0;
+	border: 3px solid white;
 	border-radius: 15px;
 	background-color: rgba(111, 111, 111, .5);
 	padding: 15px;
@@ -249,7 +264,16 @@ Change fon size on Backspace button
 Change actual button size on backspace
 Caps Lock, and Shift*/
 
+@media only screen and (max-width: 1050px) {
+    #advance, #menu {
+        font-size: 2.5rem;
+    }
 
+    .keepGoing {
+    	padding: 5px;
+    	margin-top: 8px;
+    }
+}
 
 
 
