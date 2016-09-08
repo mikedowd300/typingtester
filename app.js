@@ -14,10 +14,12 @@ function closeModal() {
 }
 
 function openMenu() {
+	$('#userInput').val('');
+	randStrIndex = 0;
 	$('.modal-trasparency').css('display', 'block');	
 }
 
-//Set the height on the keyboard keys initially and as the window resizes. The height should be the same as the with of a key with class="letter" which is dynamic cuz its a percentage. The Height of the keyboard should be calculated based on the available room on the screen.
+//Set the height on the keyboard keys initially and as the window resizes. The height should be the same as the with of a key with class="letter" which is dynamic cuz its a percentage. The Height of the keyboard should be culated based on the available room on the screen.
 function findKeyBoardHeights() {
 	var tall = $('.letter').css('width');
 	$('.key').css('height', tall);
@@ -26,10 +28,9 @@ function findKeyBoardHeights() {
 	$('.letter').css('line-height', tall);
 	tall = (parseInt(tall) * 2 / 3) + 'px';
 	$('.double').css('line-height', tall);
-
 	var margin = $('.key-board').css('margin-left');
 	$('.key-board').css('margin', margin);
-
+	$('.results').css('margin-top', margin);
 	tall = $('.letter').css('width');
 	tallBoard = ((parseInt(tall) + 19 + parseInt(margin)) * 6) + 'px';
 	$('.key-board').css('height', tallBoard);
@@ -39,22 +40,10 @@ function findKeyBoardHeights() {
 $(window).resize(function(){
     findKeyBoardHeights();
 });
-//do te clear fix for the li items in the modal nav as well as for the keyboard keys
-
-//Find out how to figure out which key is pressed on ondownclick(). Use thta to make the appropriate key light up on the keyboard as its pressed
-
-//Also on the ondownclick() event, find out the property name of the string inside a text area so it can be compared, after every keystroke, to the string in the practiceMaterials class and the appropriate key index can be either grayed out if correct or become bright if incorrect.
-
-//Create a timer that starts when the first item is clicked in the textarea and ends when the 100th character is pressed.
-
-//For small screens, reduce the number of characters in the practiceMaterial string so that there isn't excessive word wrapping shrinking the screen
-
-//decide how you want to handle errors, should the user fix them, or should he just keep going
-
-//Add a color-coded finger guide. Unless you figure out how to have transparent hands over the board pressing the keys. That would be the coolest.
 
 function userAdvance() {
 	$('#userInput').val('');
+	randStrIndex = 0;
 	if (pass && level < levels.length) {
 		level += 1;
 		doLevel(level);
@@ -66,8 +55,7 @@ function userAdvance() {
 }
 
 function doLevel(lev) {
-	// Creat a string of HTML that contains a single character from randStr wrapped in 
-	//<span id="charX"> where coinsides with the character number in randStr
+	// Creat a string of HTML that contains a single character from randStr wrapped in <span id="charX"> where coinsides with the character number in randStr
 	var nextLevel = levels[lev];
 	randStr = randomStr(nextLevel);	
 	var htmlStr = '';
@@ -106,6 +94,16 @@ function keyPress(k) {
 	var chr = k.key;
 	var tempId = '.char' + randStrIndex;
 	var d = new Date();
+	// var keyColor = setColor(randStr[randStrIndex + 1]);
+	var keyColor = 'green';
+	if(randStrIndex > 0) {
+		hiliteKey(chr, chr, 'black', 3);	
+	}
+	hiliteKey(randStr[randStrIndex], chr, 'red', 1);
+	if(randStrIndex < 98) {
+		hiliteKey(randStr[randStrIndex + 1], chr, keyColor, 2);
+	}
+
 	if(chr !== randStr[randStrIndex]) {		
 		errorCount++;			
 		$(tempId).css('color', 'red');
@@ -131,21 +129,17 @@ function keyPress(k) {
 		min = d.getMinutes();
 		sec = d.getSeconds();		
 		endTime = (hr * 3600) + (min * 60) + sec;
-		console.log(endTime);
 		var timeTotal = (endTime - startTime) + ' seconds';
 		var wpm = Math.round(17/((endTime - startTime)/60));
 		$('.wpm').text(wpm);
-		console.log(timeTotal);
 		$('.time').text(timeTotal);
 		$('#userInput').blur();
 		var accStr = (100 - errorCount) + '%'; 
 		$('.accuracy').text(accStr);
 		errorCount = 0;
 		$('.key-board').css('width', 'calc(70% - 1px)');
-		$('.results').css('visibility', 'visible');
-		$('.results').css('width', 'calc(22% - 1px)').css('margin-right', '10px');
-		$('#advance').css('color','blue').hide();
-		$('#advance').delay( 2000 ).fadeIn( 1000 );
+		$('.results').css('visibility', 'visible').css('width', 'calc(22% - 1px)').css('margin-right', '10px');
+		$('#advance').css('color','blue').hide().delay(200 ).fadeIn( 1000 );
 		randStrIndex = -1;
 	}		
 	randStrIndex++;
@@ -154,3 +148,155 @@ function keyPress(k) {
 function focusTextArea () {
 	$('textarea').focus();
 }
+
+function hiliteKey(ky, userKy, col, myCase) {
+	//The case arg colors a key when it erases a red, sets a red, or erases a green (erase means make black)
+
+	userKy = keyToClass(userKy);
+	ky = keyToClass(ky);
+
+	if(myCase === 3) {
+		ky = 'key, .letter';
+	}
+
+	if(myCase === 1 && userKy === ky){
+		col = 'rgb(0, 0, 0)';
+	}	
+
+	if(myCase === 1) {
+		ky = userKy;
+	}
+
+	$('.' + ky).css('background-color', col);
+}
+
+function keyToClass(ky) {
+	ky = ky.toLowerCase();
+	switch (ky.charCodeAt(0)) {
+    case 96:
+    	ky = 'grave';
+    	break;
+    case 48:
+        ky = 'zero';
+        break;
+    case 49:
+        ky = 'one';
+        break;
+    case 50:
+        ky = 'two';
+        break;
+    case 51:
+        ky = 'three';
+        break;
+    case 52:
+        ky = 'four';
+        break;
+    case 53:
+        ky = 'five';
+        break;
+    case 54:
+        ky = 'six';
+        break;
+    case 55:
+    	ky = 'seven';
+        break;
+    case 6:
+    	ky = 'eight';
+        break;
+    case 57:
+    	ky = 'nine';
+        break;
+    case 45:
+    	ky = 'dash';
+        break;
+    case 61:
+    	ky = 'equals';
+        break;
+    case 92:
+    	ky = 'back-slash';
+        break;
+    case 9://tab
+    	ky = 'tab';
+        break;
+    case 91:
+    	ky = 'left-bracket';
+        break;
+    case 93:
+    	ky = 'right-bracket';
+        break;
+    case 59:
+    	ky = 'semi-colon';
+        break;
+    case 39:
+    	ky = 'apostraphe';
+        break;
+    case 44:
+    	ky = 'comma';
+        break;
+    case 46:
+    	ky = 'period';
+        break;
+    case 47:
+    	ky = 'forward-slash';
+        break;
+    case 32:
+    	ky = 'space-bar';    	
+        break;
+    //doesnt inlclude backspace, enter, caps lock, shift keys or any shift+ keys......yet
+	}	
+    return ky;
+}
+
+function setColor(ky) {
+	var col = 'yellow';
+	switch(ky){
+	    case 'r':
+	    case 'd':
+	    case 't':
+	    case 'c': 
+	    	col = 'orange';
+	    	break;
+	    case 'w':
+	    case 'e':
+	    case 's':
+	    case 'x': 
+	    	col = 'brown';
+	    	break;
+	    case 'q':
+	    case 'a':
+	    case 'z': 
+	    	col = 'purple';
+	    	break;
+	    case ' ':
+	    	col = 'gray';
+	    	break;
+	    case 'y':
+	    case 'u':
+	    case 'h':
+	    case 'j':
+	    case 'n':
+	    case 'm': 
+	    	col = 'aqua';
+	    	break;
+	    case 'k':
+	    case 'i':
+	    case ',': 
+	    	col = 'green';
+	    	break;
+	    case 'o':
+	    case 'l':
+	    case '.': 
+	    	col = 'lime';
+	    	break;
+	    case 'p':
+	    case ';':
+	    case "'":
+	    case '/': 
+	    	col = 'turquoise';
+	    	break;
+	}
+	return col;
+}
+
+
+
