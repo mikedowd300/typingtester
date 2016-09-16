@@ -5,7 +5,7 @@ var level = 0;
 var errorCount = 0;
 var randStr;
 var randStrIndex = 0;
-var levels = ['ffjj ', 'dddk kkfj ', 'ssss llll dfjk ', 'ffjj ddkk ssll ', 'uuuu uuuu rrrr rrrr ffjj dksl ', 'eeee iiii eeii rruu kkdd slei ', 'sdfe rjki lulu sdfe rjki ', 'aaaa aa;; ;;;;sldk fjei a;ie ', 'wwww oooo wwoo llls ssee iikj dfur a;wo ', 'aaaa ;;;; wwww oooo fjdk slur eiwo ','hhhh hhgg gggg uutt iirr owks a;hg ', 'tttt ttpp pppp ;;;a aaoo rrfj kdsl a;pt ', 'wert uiop asdf ghjk l; ', 'qqqq qqyy yyyy aaah hhgj uuww sert iopk l;qy ', 'qqyy wwtt oopp erui asdf ghjk l;', 'mmmm mmvv ggkk gkuu ttrr desa qwui opl; ', 'nnnn nncc cccc mmmv vvvj fdsa kl;u rytp ', 'mmmm nnnn vvvv cccc jjff kkdd llss a;ur ', 'xxxx xxx, ,,,, ,,mm cckk kddd l;as wert yuio p', 'zzzz zzz. .... ..ll ss;; aasl ddkk ppee ', 'qwer tyui opas dfgh jkl; xcvn m,.z ', 'qazs xpl.k ,zq. ']
+var levels = ['ffjj ', 'dddk kkfj ', 'ssss llll dfjk ', 'ffjj ddkk ssll ', 'uuuu uuuu rrrr rrrr ffjj dksl ', 'eeee iiii eeii rruu kkdd slei ', 'sdfe rjki lulu sdfe rjki ', 'aaaa aa;; ;;;;sldk fjei a;ie ', 'wwww oooo wwoo llls ssee iikj dfur a;wo ', 'aaaa ;;;; wwww oooo fjdk slur eiwo ','hhhh hhgg gggg uutt iirr owks a;hg ', 'tttt ttpp pppp ;;;a aaoo rrfj kdsl a;pt ', 'wert uiop asdf ghjk l; ', 'qqqq qqyy yyyy aaah hhgj uuww sert iopk l;qy ', 'qqyy wwtt oopp erui asdf ghjk l;', 'mmmm mmvv vvvv vmgk gkuu ttrr desa qwui opl; ', ',,,, ,,cc cccc cmm, vvvj fdsa kl;u rytp ', 'mmmm ,,,, vvvv cccc jjff kkdd llss a;ur ', 'xxxx xxx. .... ..mm cckk c,dd l;as wert yuio p', "zzzz zzz/ //// //'' '''' 'cll ss;; aasl ddkk ppee ", "z/'qwer tyui opas dfgh jkl; xcvn m,.z ", "bbbbb nnnnn mmccv vjfx nklds nghty bbuir", 'qazs xpl.k ,zq. bnyt ', 'JJFF KKDD JFKD jfkd', 'SSSs LLLl AAAa', 'GGGg HHHh TTTt YYYy', 'JjFf KkDd SsLl AaGg AhTtYy ', 'UUUu RRRr IIIi EEEe', 'QQQq WWWw PPPp OOOo', 'UuRr IiEe QyWw PpOo', 'VVVv MMMm CCCc ???/ ', 'ZZZz XXXx BBBb NNNn ', 'VvMm Cc?/', "abcde fghij klmno pqrst uvwxyzABCD EFGHI JKLMN OPQRS TUVWX YZ;'/?", '4444 7777.', '3333 8888.', '2222 9999.', '38294. ', '1111 0000.', '5555 6666.', '01234 56789.', '$$$4 &&&&7', '###3 ****8', '4738 $&#*', '2@@@ (((9','!!!1 )))0', '29@( 10!)', '01234 56789 !@#$% ^&*()', '%%%5 ^^^', '--__- _0p', '+=+ =+=-p[', '{[}] p;', '<,>.', "-_+={[ }]<,>.?/ ", "123 456 7890-= qwerty uiop[] asdfgh jkl;'z xcvbnm ,./!@# $%^&*( )_+QWE RTY UIOP {}ASDFG HJKL:ZX CVBN M<>?"]
 doLevel(0);
 
 function closeModal() {
@@ -89,6 +89,9 @@ function randomStr(str) {
 
 function keyPress(k) {
 	//var startTime = 0;
+	
+	console.log(k, k.key);
+
 	var endTime = 0;
 	var hr, min, sec;
 	var chr = k.key;
@@ -174,69 +177,90 @@ function keyToClass(ky) {
 	ky = ky.toLowerCase();
 	switch (ky.charCodeAt(0)) {
     case 96:
+    case 126:
     	ky = 'grave';
     	break;
     case 48:
+    case 41:    
         ky = 'zero';
         break;
     case 49:
+    case 33:
         ky = 'one';
         break;
     case 50:
+    case 64:
         ky = 'two';
         break;
     case 51:
+    case 35:
         ky = 'three';
         break;
     case 52:
+    case 36:
         ky = 'four';
         break;
     case 53:
+    case 37:
         ky = 'five';
         break;
     case 54:
+    case 94:
         ky = 'six';
         break;
     case 55:
+    case 38:
     	ky = 'seven';
         break;
-    case 6:
+    case 56:
+    case 42:
     	ky = 'eight';
         break;
     case 57:
+    case 40:
     	ky = 'nine';
         break;
     case 45:
+    case 95:
     	ky = 'dash';
         break;
     case 61:
+    case 43:
     	ky = 'equals';
         break;
     case 92:
+    case 124:
     	ky = 'back-slash';
         break;
     case 9://tab
     	ky = 'tab';
         break;
     case 91:
+    case 123:
     	ky = 'left-bracket';
         break;
     case 93:
+    case 125:
     	ky = 'right-bracket';
         break;
     case 59:
+    case 58:
     	ky = 'semi-colon';
         break;
     case 39:
+    case 34:
     	ky = 'apostraphe';
         break;
     case 44:
+    case 60:
     	ky = 'comma';
         break;
     case 46:
+    case 62:
     	ky = 'period';
         break;
     case 47:
+    case 63:
     	ky = 'forward-slash';
         break;
     case 32:
