@@ -88,25 +88,15 @@ function randomStr(str) {
 }
 
 function keyPress(k) {
-	//var startTime = 0;
-	
-	console.log(k, k.key);
-
 	var endTime = 0;
 	var hr, min, sec;
 	var chr = k.key;
 	var tempId = '.char' + randStrIndex;
 	var d = new Date();
-	// var keyColor = setColor(randStr[randStrIndex + 1]);
 	var keyColor = 'green';
-	if(randStrIndex > 0) {
-		hiliteKey(chr, chr, 'black', 3);	
-	}
+	if(randStrIndex > 0) hiliteKey(chr, chr, 'black', 3);
 	hiliteKey(randStr[randStrIndex], chr, 'red', 1);
-	if(randStrIndex < 98) {
-		hiliteKey(randStr[randStrIndex + 1], chr, keyColor, 2);
-	}
-
+	if(randStrIndex < 98) hiliteKey(randStr[randStrIndex + 1], chr, keyColor, 2);
 	if(chr !== randStr[randStrIndex]) {		
 		errorCount++;			
 		$(tempId).css('color', 'red');
@@ -154,22 +144,11 @@ function focusTextArea () {
 
 function hiliteKey(ky, userKy, col, myCase) {
 	//The case arg colors a key when it erases a red, sets a red, or erases a green (erase means make black)
-
 	userKy = keyToClass(userKy);
 	ky = keyToClass(ky);
-
-	if(myCase === 3) {
-		ky = 'key, .letter';
-	}
-
-	if(myCase === 1 && userKy === ky){
-		col = 'rgb(0, 0, 0)';
-	}	
-
-	if(myCase === 1) {
-		ky = userKy;
-	}
-
+	if(myCase === 3) ky = 'key, .letter';
+	if(myCase === 1 && userKy === ky)	col = 'rgb(0, 0, 0)';
+	if(myCase === 1) ky = userKy;
 	$('.' + ky).css('background-color', col);
 }
 
